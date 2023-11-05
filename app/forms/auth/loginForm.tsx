@@ -4,17 +4,9 @@ import * as yup from 'yup';
 
 
 
-const InnerRegisterForm = (props: FormikProps<RegisterFormValues>) => {
+const InnerLoginForm = (props: FormikProps<LoginFormValues>) => {
     return (
         <Form className="w-50" >
-            <div className="mb-4">
-                <Input
-                    label="Your Name"
-                    name="name"
-                    inputClassName="form-control"
-                />
-            </div>
-
             <div className="mb-4">
                 <Input
                     label="Email Address"
@@ -33,46 +25,37 @@ const InnerRegisterForm = (props: FormikProps<RegisterFormValues>) => {
             </div>
 
             <button type="submit" className="btn btn-primary">
-                submit
+                login
             </button>
         </Form>
     )
 }
 
-interface RegisterFormProps {
-    name?: string,
+interface LoginFormProps {
     email?: string,
     password?: string,
 }
 
-interface RegisterFormValues {
-    label?: string;
-    id?: string;
-    name: string;
-    type?: string;
-    placeholder?: string;
-    labelClassName?: string;
-    inputClassName?: string;
-    errorClassName?: string;
+interface LoginFormValues {
+    email?: string;
+    password?: string,
 }
 
-const registerFormValidationSchema = yup.object({
-    name: yup.string().trim().required('Name is required'),
+const loginFormValidationSchema = yup.object({
     email: yup.string().email('Must be a valid email').required('Email is required'),
     password: yup.string().min(8, 'min lentgh of pass is 8 char').required('Password is required'),
 });
 
 
-const RegisterForm = withFormik<RegisterFormProps, RegisterFormValues>({
+const LoginForm = withFormik<LoginFormProps, LoginFormValues>({
     mapPropsToValues: (props) => ({
-        name: props.name ?? '',
         email: props.email ?? '',
         password: props.password ?? '',
     }),
-    validationSchema: registerFormValidationSchema,
+    validationSchema: loginFormValidationSchema,
     handleSubmit: (values) => {
         console.log(values)
     }
-})(InnerRegisterForm)
+})(InnerLoginForm)
 
-export default RegisterForm;
+export default LoginForm;
