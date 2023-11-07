@@ -1,6 +1,8 @@
 import InnerLoginForm from "@/app/components/auth/innerLoginForm";
 import { LoginFormValuesInterface } from "@/app/contracts/auth";
+import callApi from "@/app/helpers/callApi";
 import { withFormik } from "formik";
+import Router from "next/router";
 import * as yup from 'yup';
 
 const loginFormValidationSchema = yup.object({
@@ -9,6 +11,7 @@ const loginFormValidationSchema = yup.object({
 });
 
 interface LoginFormProps {
+    setCookie : any,
     email?: string,
     password?: string,
 }
@@ -19,8 +22,21 @@ const LoginForm = withFormik<LoginFormProps, LoginFormValuesInterface>({
         password: props.password ?? '',
     }),
     validationSchema: loginFormValidationSchema,
-    handleSubmit: (values) => {
-        console.log(values)
+    handleSubmit: async (values, {props}) => {
+        
+        const res = await callApi().post('/auth/login', values);
+        console.log(res.status)
+        if (res.status === 200) {
+            console.log(res.data.token)
+            props.setCookie('login-token', res.data.token, {
+                path: '/',
+                maxAge: 60 * 60 * 24 ,
+                domain: 'localhost',
+                sameSite: 'lax'
+            });
+            Router.push('/');
+        }
+
     }
 })(InnerLoginForm)
 
