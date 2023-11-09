@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RegisterForm from '@/app/forms/auth/registerForm';
+import RegisterFormPhone from '@/app/forms/auth/registerFormPhone';
 
 const Register: NextPage = () => {
     return (
@@ -9,7 +10,8 @@ const Register: NextPage = () => {
             <div className='w-50 mb-4'>
                 <h2>Register page!</h2>
             </div>
-            <RegisterForm />
+            {/* <RegisterForm /> */}
+            <RegisterFormPhone />
         </div>
     );
 };
