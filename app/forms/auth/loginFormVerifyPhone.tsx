@@ -1,6 +1,7 @@
 import InnerLoginFormVerifyPhone from "@/app/components/auth/innerLoginFormVerifyPhone";
 import { LoginFormValuesInterfaceVerifyPhone } from "@/app/contracts/auth";
 import validationErrors from "@/app/exceptions/validationErrors";
+import { storeLoginToken } from "@/app/helpers/auth";
 import callApi from "@/app/helpers/callApi";
 import { withFormik } from "formik";
 import Router from "next/router";
@@ -51,12 +52,14 @@ const LoginFormVerifyPhone = withFormik<LoginFormProps, LoginFormValuesInterface
             console.log(res);
             if (res.status === 200) {
                 
-                props.setCookie('auth-token', res.data.user.token, {
-                    path: '/',
-                    maxAge: 60 * 60 * 24,
-                    domain: 'localhost',
-                    sameSite: 'lax'
-                });
+                // props.setCookie('auth-token', res.data.user.token, {
+                //     path: '/',
+                //     maxAge: 60 * 60 * 24,
+                //     domain: 'localhost',
+                //     sameSite: 'lax'
+                // });
+                storeLoginToken(res.data?.user?.token); 
+
                 await Router.push('/');
                 props.clearToken();
             }
