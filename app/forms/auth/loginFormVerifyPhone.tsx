@@ -59,9 +59,9 @@ const LoginFormVerifyPhone = withFormik<LoginFormProps, LoginFormValuesInterface
                 //     sameSite: 'lax'
                 // });
                 storeLoginToken(res.data?.user?.token); 
-
-                await Router.push('/');
                 props.clearToken();
+                await Router.push('/panel');
+                
             }
 
         } catch (error) {
