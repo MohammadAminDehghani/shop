@@ -1,10 +1,14 @@
 import useSWR from "swr";
 import Cookies from "universal-cookie";
 import callApi from "../helpers/callApi";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/auth";
 
 
 
 const  useAuth = () => {
+
+    const dispatch = useDispatch();
 
     const Cookie = new Cookies();
 
@@ -15,7 +19,9 @@ const  useAuth = () => {
                 authorization : Cookie.get('auth_token')
             }
         })
-    })
+    });
+
+    dispatch(updateUser(data?.data?.user))
 
     return { user : data?.data?.user, error, loading: !data && !error}
 }

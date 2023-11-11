@@ -5,6 +5,7 @@ import { object, string } from "yup";
 import axios from "axios";
 import callApi from "@/app/helpers/callApi";
 import useAuth from "@/app/hooks/useAuth";
+import UserInfo from "@/app/components/panel/userInfo";
 
 
 const Panel : NextPageWithLayout = () => {
@@ -22,7 +23,7 @@ const Panel : NextPageWithLayout = () => {
     return(
         <>
             <div>
-                this is panel
+                <UserInfo />
             </div>
         </>
     )
