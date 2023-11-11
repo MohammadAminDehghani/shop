@@ -7,12 +7,15 @@ interface Props {
 }
 
 
-const UserPanelLayout = ({ children }: Props) => {
+const GuestLayout = ({ children }: Props) => {
 
     const router = useRouter()
-    const { user, error, loading } = useAuth();
+    const { user, error } = useAuth();
 
-    if (loading) { return <h1>Loading...</h1> }
+    if (user) {
+        router.push('/panel')
+        return <></>
+     }
 
     if (error) {
         //show error message
@@ -28,4 +31,4 @@ const UserPanelLayout = ({ children }: Props) => {
 }
 
 
-export default UserPanelLayout;
+export default GuestLayout;

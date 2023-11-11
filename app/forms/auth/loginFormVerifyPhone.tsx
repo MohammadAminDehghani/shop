@@ -49,7 +49,7 @@ const LoginFormVerifyPhone = withFormik<LoginFormProps, LoginFormValuesInterface
         try {
             
             const res = await callApi().post('/auth/login/verify-phone', valuesForSend);
-            console.log(res);
+
             if (res.status === 200) {
                 
                 // props.setCookie('auth-token', res.data.user.token, {

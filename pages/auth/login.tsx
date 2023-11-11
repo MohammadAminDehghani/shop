@@ -1,17 +1,18 @@
 // next
-import type { NextPage } from 'next';
+import { NextPageWithLayout } from '../_app';
 
 //pakages
 import { useCookies } from 'react-cookie';
 
 // my imports
-import LoginForm from '@/app/forms/auth/loginForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginFormPhone from '@/app/forms/auth/loginFormPhone';
 import { useAppDispatch } from '@/app/hooks';
 import { updatePhoneVerifyToken } from '@/app/store/auth';
+import GuestLayout from '@/app/components/guestLayout';
 
-const Login: NextPage = () => {
+
+const Login: NextPageWithLayout = () => {
 
     const [cookies, setCookie, removeCookie] = useCookies(['login-token']);
 
@@ -31,5 +32,8 @@ const Login: NextPage = () => {
         </div>
     );
 };
+
+
+Login.getLayout = (page) => <GuestLayout>{page}</GuestLayout>
 
 export default Login;

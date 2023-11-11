@@ -1,5 +1,4 @@
 // next
-import type { NextPage } from 'next';
 import { useEffect } from "react";
 
 //pakages
@@ -11,8 +10,10 @@ import LoginFormVerifyPhone from '@/app/forms/auth/loginFormVerifyPhone';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { selectPhoneVerifyToken, updatePhoneVerifyToken } from '@/app/store/auth';
 import Router from 'next/router';
+import { NextPageWithLayout } from '../_app';
+import GuestLayout from '@/app/components/guestLayout';
 
-const LoginVerify: NextPage = () => {
+const LoginVerify: NextPageWithLayout = () => {
 
      const [cookies, setCookie, removeCookie] = useCookies(['login-token']);
     // const token = cookies['login-token']
@@ -50,5 +51,7 @@ const LoginVerify: NextPage = () => {
         </div>
     );
 };
+
+LoginVerify.getLayout = (page) => <GuestLayout>{page}</GuestLayout>
 
 export default LoginVerify;

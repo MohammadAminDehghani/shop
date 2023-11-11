@@ -7,7 +7,7 @@ interface Props {
 }
 
 
-const UserPanelLayout = ({ children }: Props) => {
+const AdminPanelLayout = ({ children }: Props) => {
 
     const router = useRouter()
     const { user, error, loading } = useAuth();
@@ -20,6 +20,12 @@ const UserPanelLayout = ({ children }: Props) => {
         return <></>;
     }
 
+    if (!user?.is_admin) {
+        //redirect user to admin page
+        router.push('/')
+        return <></>;
+    }
+
     return (
         <div className="container">
             {children}
@@ -28,4 +34,4 @@ const UserPanelLayout = ({ children }: Props) => {
 }
 
 
-export default UserPanelLayout;
+export default AdminPanelLayout;
