@@ -22,8 +22,17 @@ const storeLoginToken = async (token: string) => {
 }
 
 
-const removeLoginToken = () => {
+const removeLoginToken = async () => {
 
+    // const cookie = new Cookies();
+    // cookie.remove('auth_token');
+
+    await fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
 }
 
 

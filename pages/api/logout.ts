@@ -6,23 +6,18 @@ type Data = {
   status: string
 }
 
-interface ExtendedNextApiRequest extends NextApiRequest {
-  body: {
-    token: string
-  }
-}
 
 export default function handler(
-  req: ExtendedNextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   console.log(req?.body?.token)
   //res.status(200).end( JSON.stringify(req.body)  )
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize('auth_token', req?.body?.token, {
+    cookie.serialize('auth_token', "", {
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 2,
+      maxAge: 0,
       sameSite: 'lax',
       path: '/'
       // domain: '',

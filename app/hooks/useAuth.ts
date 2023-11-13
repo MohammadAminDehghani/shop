@@ -14,11 +14,13 @@ const  useAuth = () => {
 
     const { data, error } =  useSWR('user_me', ()=>{
 
-        return callApi().get('/user',{
-            headers : {
-                authorization : Cookie.get('auth_token')
-            }
-        })
+        // return callApi().get('/user',{
+        //     headers : {
+        //         authorization : Cookie.get('auth_token')
+        //     }
+        // })
+
+        return callApi().get('/user')
     });
 
     //dispatch(updateUser(data?.data?.user))
