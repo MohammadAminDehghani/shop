@@ -9,10 +9,10 @@ const UserInfo = () => {
 
 
     // use swr
-    //const { user } = useAuth();
+    const { user } = useAuth();
 
     // use redux
-    const user = useAppSelector(selectUser)
+    //const user = useAppSelector(selectUser)
 
     return(
         <>

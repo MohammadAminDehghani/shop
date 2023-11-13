@@ -17,11 +17,11 @@ const GuestLayout = ({ children }: Props) => {
         return <></>
      }
 
-    if (error) {
-        //show error message
-        router.push('/auth/login')
-        return <></>;
-    }
+    // if (error) {
+    //     //show error message
+    //     router.push('/auth/login')
+    //     return <></>;
+    // }
 
     return (
         <div className="container">

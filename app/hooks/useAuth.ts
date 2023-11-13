@@ -8,7 +8,7 @@ import { updateUser } from "../store/auth";
 
 const  useAuth = () => {
 
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     const Cookie = new Cookies();
 
@@ -21,7 +21,7 @@ const  useAuth = () => {
         })
     });
 
-    dispatch(updateUser(data?.data?.user))
+    //dispatch(updateUser(data?.data?.user))
 
     return { user : data?.data?.user, error, loading: !data && !error}
 }
