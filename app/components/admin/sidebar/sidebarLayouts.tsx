@@ -10,16 +10,12 @@ import {
     InboxIcon,
     UsersIcon,
     XMarkIcon,
+    ShoppingBagIcon
 } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
-const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Team', href: '#', icon: UsersIcon, current: false },
-    { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
+
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -28,14 +24,22 @@ function classNames(...classes: string[]) {
 
 interface props {
     open: boolean,
-    setOpen : React.Dispatch<React.SetStateAction<boolean>>
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    pageName: string
 }
 
 
 
-export default function SidebarLayout({ open, setOpen }: props) {
+export default function SidebarLayout({ open, setOpen, pageName }: props) {
 
-    //const [sidebarOpen, setSidebarOpen] = useState(false);
+    const navigation = [
+        { name: 'Dashboard', href: '/admin', icon: HomeIcon, current: pageName === 'dashboard' },
+        { name: 'Users', href: '/admin/users', icon: UsersIcon, current: pageName === 'users'  },
+        { name: 'Products', href: '/admin/products', icon: ShoppingBagIcon, current: pageName === 'products'  },
+        // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+        // { name: 'Documents', href: '#', icon: InboxIcon, current: false },
+        // { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
+    ]
 
     return (
         <>
@@ -94,7 +98,7 @@ export default function SidebarLayout({ open, setOpen }: props) {
                                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
                                     <nav className="space-y-1 px-2">
                                         {navigation.map((item) => (
-                                            <a
+                                            <Link
                                                 key={item.name}
                                                 href={item.href}
                                                 className={classNames(
@@ -112,7 +116,8 @@ export default function SidebarLayout({ open, setOpen }: props) {
                                                     aria-hidden="true"
                                                 />
                                                 {item.name}
-                                            </a>
+                                            </Link>
+
                                         ))}
                                     </nav>
                                 </div>
@@ -139,7 +144,7 @@ export default function SidebarLayout({ open, setOpen }: props) {
                     <div className="flex flex-1 flex-col overflow-y-auto">
                         <nav className="flex-1 space-y-1 px-2 py-4">
                             {navigation.map((item) => (
-                                <a
+                                <Link
                                     key={item.name}
                                     href={item.href}
                                     className={classNames(
@@ -155,7 +160,7 @@ export default function SidebarLayout({ open, setOpen }: props) {
                                         aria-hidden="true"
                                     />
                                     {item.name}
-                                </a>
+                                </Link>
                             ))}
                         </nav>
                     </div>

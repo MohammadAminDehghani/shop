@@ -1,8 +1,8 @@
-import { NextPageWithLayout } from "../_app";
+import { NextPageWithLayout } from "../../_app";
 import { useEffect, useState } from "react";
 import AdminPanelLayout from "@/app/components/adminPanelLayout";
 
-const Admin: NextPageWithLayout = () => {
+const AdminProducts: NextPageWithLayout = () => {
 
     const [loading, setLoading] = useState(true);
 
@@ -28,13 +28,13 @@ const Admin: NextPageWithLayout = () => {
     return (
         <>
             <div>
-                Admin panel
+                Admin products
             </div>
         </>
     )
 }
 
 
-Admin.getLayout = (page) => <AdminPanelLayout pageName="dashboard">{page}</AdminPanelLayout>
+AdminProducts.getLayout = (page) => <AdminPanelLayout pageName="products">{page}</AdminPanelLayout>
 
-export default Admin;
+export default AdminProducts;

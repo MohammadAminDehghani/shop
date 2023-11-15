@@ -24,10 +24,11 @@ function classNames(...classes: string[]) {
 
 
 interface Props {
-    children: ReactNode
+    children: ReactNode,
+    pageName: string
 }
 
-const AdminPanelLayout = ({ children }: Props) => {
+const AdminPanelLayout = ({ children, pageName }: Props) => {
     const router = useRouter();
     const { user, error, loading } = useAuth();
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -48,7 +49,7 @@ const AdminPanelLayout = ({ children }: Props) => {
     return (
         <>
             <div>
-                <SidebarLayout open = { sidebarOpen } setOpen = {setSidebarOpen} />
+                <SidebarLayout open={sidebarOpen} setOpen={setSidebarOpen} pageName = {pageName} />
                 <div className="flex flex-col md:pl-64">
                     <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
                         <button
@@ -134,15 +135,10 @@ const AdminPanelLayout = ({ children }: Props) => {
 
                     <main className="flex-1">
                         <div className="py-6">
-                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                                <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-                            </div>
-                            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                                {/* Replace with your content */}
-                                <div className="py-4">
-                                    <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
+                            <div className="flex items-stretch bg-grey-lighter min-h-screen">
+                                <div className="px-3">
+                                    {children}
                                 </div>
-                                {/* /End replace */}
                             </div>
                         </div>
                     </main>
