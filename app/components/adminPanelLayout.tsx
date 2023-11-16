@@ -50,7 +50,7 @@ const AdminPanelLayout = ({ children, pageName }: Props) => {
         <>
             <div>
                 <SidebarLayout open={sidebarOpen} setOpen={setSidebarOpen} pageName = {pageName} />
-                <div className="flex flex-col md:pl-64">
+                <div className="flex flex-col md:pl-64 min-h-screen">
                     <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
                         <button
                             type="button"
@@ -133,14 +133,8 @@ const AdminPanelLayout = ({ children, pageName }: Props) => {
                         </div>
                     </div>
 
-                    <main className="flex-1">
-                        <div className="py-6">
-                            <div className="flex items-stretch bg-grey-lighter min-h-screen">
-                                <div className="px-3">
-                                    {children}
-                                </div>
-                            </div>
-                        </div>
+                    <main className="flex-1 items-stretch bg-grey-lighter px-4 py-6">
+                        {children}
                     </main>
                 </div>
             </div>
