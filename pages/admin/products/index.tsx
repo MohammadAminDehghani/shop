@@ -1,8 +1,9 @@
 import { NextPageWithLayout } from "../../_app";
 import { useEffect, useState } from "react";
 import AdminPanelLayout from "@/app/components/adminPanelLayout";
-import { Dialog } from "@headlessui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import Modal from "@/app/components/shared/modal";
+import { useRouter } from "next/router";
 
 const people = [
   {
@@ -11,36 +12,19 @@ const people = [
     email: "lindsay.walton@example.com",
     role: "Member",
   },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
+
   // More people...
 ];
 
 const AdminProducts: NextPageWithLayout = () => {
   const [loading, setLoading] = useState(true);
-  const [showAddProduct, setShowAddProduct] = useState(false);
+  //const [showCreateProduct, setShowCreateProduct] = useState(false);
+
+  const router = useRouter();
+
+  const setShowCreateProduct = (show = true) => {
+    router.push(`/admin/products${show === true ? '?create-product' : ''}`);
+  }
 
   useEffect(() => {
     setInterval(() => {
@@ -75,30 +59,40 @@ const AdminProducts: NextPageWithLayout = () => {
 
   return (
     <>
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
-        open={showAddProduct}
-        onClose={() => setShowAddProduct(false)}
-      >
-        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-[.4]" />
-        <span className="inline-block h-screen align-middle">&#8203;</span>
-        <div className={`inline`}>
-          <div className="inline-block w-full max-w-4xl mt-8 mb-20 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
-            <div>
-              <p>
-                Are you sure you want to deactivate your account? All of your
-                data will be permanently removed. This action cannot be undone.
-              </p>
+      {
+        //   showAddProduct && <Modal
+        // setShow={setShowAddProduct}
+        "create-product" in router.query && 
+          <Modal setShow={() => setShowCreateProduct(false)}>
+            <div className="p-4 inline-block w-full max-w-4xl mt-20 mb-20 ml-20 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
+              <div>
+                <p>
+                  Are you sure you want to deactivate your account? All of your
+                  data will be permanently removed. This action cannot be
+                  undone.
+                </p>
 
-              <button onClick={() => setShowAddProduct(false)}>
-                Deactivate
-              </button>
-              <button onClick={() => setShowAddProduct(false)}>Cancel</button>
+                <button
+                  className="bg-transparent hover:bg-blue-500 m-2
+                    text-blue-700 font-semibold hover:text-white py-2 px-4
+                    border border-blue-500 hover:border-transparent rounded"
+                  onClick={() => setShowCreateProduct(false)}
+                >
+                  Deactivate
+                </button>
+                <button
+                  className="bg-transparent hover:bg-red-500 m-2
+                     text-red-700 font-semibold hover:text-white py-2 px-4
+                     border border-red-500 hover:border-transparent rounded"
+                  onClick={() => setShowCreateProduct(false)}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      </Dialog>
+          </Modal>
+        
+      }
 
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
@@ -112,8 +106,12 @@ const AdminProducts: NextPageWithLayout = () => {
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button
-              onClick={() => setShowAddProduct(true)}
-              type="button"
+              // onClick={() => setShowAddProduct(true)}
+              onClick={() => {
+                setShowCreateProduct(true);
+                //router.push('/admin/products?create-product')
+              }}
+              type="submit"
               className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
             >
               add product
