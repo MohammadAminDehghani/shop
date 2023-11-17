@@ -4,6 +4,7 @@ import AdminPanelLayout from "@/app/components/adminPanelLayout";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Modal from "@/app/components/shared/modal";
 import { useRouter } from "next/router";
+import CreateProductForm from "@/app/forms/admin/products/createProductForm";
 
 const people = [
   {
@@ -65,30 +66,7 @@ const AdminProducts: NextPageWithLayout = () => {
         "create-product" in router.query && 
           <Modal setShow={() => setShowCreateProduct(false)}>
             <div className="p-4 inline-block w-full max-w-4xl mt-20 mb-20 ml-20 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
-              <div>
-                <p>
-                  Are you sure you want to deactivate your account? All of your
-                  data will be permanently removed. This action cannot be
-                  undone.
-                </p>
-
-                <button
-                  className="bg-transparent hover:bg-blue-500 m-2
-                    text-blue-700 font-semibold hover:text-white py-2 px-4
-                    border border-blue-500 hover:border-transparent rounded"
-                  onClick={() => setShowCreateProduct(false)}
-                >
-                  Deactivate
-                </button>
-                <button
-                  className="bg-transparent hover:bg-red-500 m-2
-                     text-red-700 font-semibold hover:text-white py-2 px-4
-                     border border-red-500 hover:border-transparent rounded"
-                  onClick={() => setShowCreateProduct(false)}
-                >
-                  Cancel
-                </button>
-              </div>
+              <CreateProductForm />
             </div>
           </Modal>
         

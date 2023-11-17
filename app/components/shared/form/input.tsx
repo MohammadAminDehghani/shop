@@ -36,10 +36,7 @@ const Input: FC<InputProps> = ({
 				className={inputClassName}
 				placeholder={placeholder}
 			/>
-			<ErrorMessage
-				name={name}
-				className={`text-danger text-small ${errorClassName}`}
-			/>
+			<ErrorMessage name={name} className={`text-red-500 text-sm ${errorClassName ?? ''}`} component="div"/>
 
 		</>
 	)
