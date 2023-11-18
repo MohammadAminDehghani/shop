@@ -29,13 +29,13 @@ const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
 
         <div className="sm:col-span-4">
           <SelectBox 
-            name="cars"
+            name="category"
             label="cars-product"
             SelectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             options={[
-              {label: 'BMW', value:'2651'},
-              {label: 'TESLA', value:'25'},
-              {label: 'BENZ', value:'5224'},
+              {label: 'car', value:'1'},
+              {label: 'laptop', value:'2'},
+              {label: 'phone', value:'3'},
             ]}
           />
         </div>
