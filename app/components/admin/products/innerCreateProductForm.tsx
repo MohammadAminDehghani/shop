@@ -1,10 +1,9 @@
 import { Form, FormikProps } from "formik";
 import Input from "@/app/components/shared/form/input";
 import { CreateProductInterface } from "@/app/contracts/admin/products";
+import TextArea from "../../shared/form/textarea";
 
-const InnerCreateProductForm = (
-    props: FormikProps<CreateProductInterface>
-) => {
+const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
   return (
     <Form>
       <div className="p-6 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-8">
@@ -28,10 +27,17 @@ const InnerCreateProductForm = (
         </div>
 
         <div className="sm:col-span-4">
-          <Input
+          {/* <Input
             name="description"
             type="text"
             label="about product"
+            labelClassName="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          /> */}
+          <TextArea
+            name="description"
+            label="about product"
+            rows={7}
             labelClassName="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
