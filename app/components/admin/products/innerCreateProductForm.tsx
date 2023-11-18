@@ -2,6 +2,7 @@ import { Form, FormikProps } from "formik";
 import Input from "@/app/components/shared/form/input";
 import { CreateProductInterface } from "@/app/contracts/admin/products";
 import TextArea from "../../shared/form/textarea";
+import SelectBox from "../../shared/form/selectbox";
 
 const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
   return (
@@ -27,13 +28,19 @@ const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
         </div>
 
         <div className="sm:col-span-4">
-          {/* <Input
-            name="description"
-            type="text"
-            label="about product"
-            labelClassName="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          /> */}
+          <SelectBox 
+            name="cars"
+            label="cars-product"
+            SelectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            options={[
+              {label: 'BMW', value:'2651'},
+              {label: 'TESLA', value:'25'},
+              {label: 'BENZ', value:'5224'},
+            ]}
+          />
+        </div>
+
+        <div className="sm:col-span-4">
           <TextArea
             name="description"
             label="about product"
