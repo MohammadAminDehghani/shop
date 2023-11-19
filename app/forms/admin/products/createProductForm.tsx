@@ -2,6 +2,7 @@ import InnerCreateProductForm from "@/app/components/admin/products/innerCreateP
 import { CreateProductInterface } from "@/app/contracts/admin/products";
 import validationErrors from "@/app/exceptions/validationErrors";
 import callApi from "@/app/helpers/callApi";
+import { CreateProduct } from "@/app/services/product";
 import { withFormik } from "formik";
 import Router from "next/router";
 import * as yup from 'yup';
@@ -32,13 +33,11 @@ const CreateProductForm = withFormik<LoginFormProps, CreateProductInterface>({
        
         try {
 
-            const res = await callApi().post('/products/create', {
-                ...values,
-                body: values.description
-            });
-            if (res.status === 200) {
-                Router.push('/admin/products')
-            }
+            const res = await CreateProduct(values)
+            Router.push('/admin/products')
+            // if (res.status === 200) {
+            //     Router.push('/admin/products')
+            // }
 
         } catch (error) {
             if (error instanceof validationErrors) {
