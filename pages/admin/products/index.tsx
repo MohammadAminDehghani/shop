@@ -5,6 +5,9 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Modal from "@/app/components/shared/modal";
 import { useRouter } from "next/router";
 import CreateProductForm from "@/app/forms/admin/products/createProductForm";
+import useSWR from "swr";
+import { getProducts } from "@/app/services/product";
+import Product from "@/app/models/product";
 
 const people = [
   {
@@ -19,9 +22,22 @@ const people = [
 
 const AdminProducts: NextPageWithLayout = () => {
   const [loading, setLoading] = useState(true);
-  //const [showCreateProduct, setShowCreateProduct] = useState(false);
+  const [page, setPage] = useState(1);
+
+  
 
   const router = useRouter();
+
+
+  const {data : products, error} =useSWR({
+    url: '/admin/products',
+    page
+  },getProducts)
+  const loadingProducts = !products && !error;
+
+  //console.log(products)
+
+
 
   const setShowCreateProduct = (show = true) => {
     router.push(`/admin/products${show === true ? '?create-product' : ''}`);
@@ -117,18 +133,27 @@ const AdminProducts: NextPageWithLayout = () => {
                       </th>
                       <th
                         scope="col"
+                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      >
+                        Description
+                      </th>
+                      <th
+                        scope="col"
                         className="relative py-3.5 pl-3 pr-4 sm:pr-6"
                       ></th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {people.map((person) => (
-                      <tr key={person.email}>
+                    {products.map((product:Product) => (
+                      <tr key={product.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                          {person.name}
+                          {product.id}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {person.title}
+                          {product.title}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {product.body}
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
                           <a
