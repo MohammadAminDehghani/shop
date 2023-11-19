@@ -11,18 +11,14 @@ import Product from "@/app/models/product";
 import Spinner from "@/app/components/icons/spinner";
 import LoadingBox from "@/app/components/shared/loadingBox";
 
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
+//import { toast } from 'react-toastify';
 
-  // More people...
-];
 
 const AdminProducts: NextPageWithLayout = () => {
+
+  //const notify = () => toast("the product created successfully");
+
+
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
@@ -87,7 +83,7 @@ const AdminProducts: NextPageWithLayout = () => {
           </Modal>
         )
       }
-
+            
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
@@ -252,6 +248,7 @@ const AdminProducts: NextPageWithLayout = () => {
           </div>
         </div>
       </div>
+      
     </>
   );
 };
