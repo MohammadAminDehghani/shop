@@ -10,14 +10,12 @@ import { GetProducts } from "@/app/services/product";
 import Product from "@/app/models/product";
 import Spinner from "@/app/components/icons/spinner";
 import LoadingBox from "@/app/components/shared/loadingBox";
+import ReactCustomPaginate from "@/app/components/shared/reactCutsomPaginate";
 
-//import { toast } from 'react-toastify';
 
 
 const AdminProducts: NextPageWithLayout = () => {
-
-  //const notify = () => toast("the product created successfully");
-
+  
 
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -33,6 +31,7 @@ const AdminProducts: NextPageWithLayout = () => {
   );
   const loadingProducts = !products && !error;
 
+  const onPageChangeHandler = ({selected} : { selected : number }) => setPage(selected+1)
   //console.log(products)
 
   const setShowCreateProduct = (show = true) => {
@@ -83,7 +82,7 @@ const AdminProducts: NextPageWithLayout = () => {
           </Modal>
         )
       }
-            
+
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
@@ -114,9 +113,8 @@ const AdminProducts: NextPageWithLayout = () => {
               <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                 {loadingProducts ? (
                   <div className="p-5">
-                    <LoadingBox />  
+                    <LoadingBox />
                   </div>
-                  
                 ) : (
                   <table className="min-w-full divide-y divide-gray-300">
                     <thead className="bg-gray-50">
@@ -178,77 +176,19 @@ const AdminProducts: NextPageWithLayout = () => {
                 )}
 
                 <div className="p-4 mt-2 border-t border-gray-200">
-                  <nav
-                    className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-                    aria-label="Pagination"
-                  >
-                    <a
-                      href="#"
-                      className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      <span className="sr-only">Next</span>
-                      <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                    {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-                    >
-                      1
-                    </a>
-                    <a
-                      href="#"
-                      className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      2
-                    </a>
-                    <a
-                      href="#"
-                      className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-                    >
-                      3
-                    </a>
-                    <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">
-                      ...
-                    </span>
-                    <a
-                      href="#"
-                      className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-                    >
-                      8
-                    </a>
-                    <a
-                      href="#"
-                      className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      9
-                    </a>
-                    <a
-                      href="#"
-                      className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      10
-                    </a>
-
-                    <a
-                      href="#"
-                      className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      <span className="sr-only">Previous</span>
-                      <ChevronRightIcon
-                        className="h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </a>
-                  </nav>
+                  
+                    <ReactCustomPaginate
+                      onPageChangeHandler={onPageChangeHandler}
+                      pageCount={7}
+                      page={page}
+                    />
+                  
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
     </>
   );
 };

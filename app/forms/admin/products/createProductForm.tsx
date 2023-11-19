@@ -2,10 +2,11 @@ import InnerCreateProductForm from "@/app/components/admin/products/innerCreateP
 import { CreateProductInterface } from "@/app/contracts/admin/products";
 import validationErrors from "@/app/exceptions/validationErrors";
 import callApi from "@/app/helpers/callApi";
-import { CreateProduct } from "@/app/services/product";
+import { CreateProduct, GetProducts } from "@/app/services/product";
 import { withFormik } from "formik";
 import Router from "next/router";
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
 const FormValidationSchema = yup.object({
     title: yup.string().min(4).max(255).required('Name is required'),
@@ -38,6 +39,8 @@ const CreateProductForm = withFormik<LoginFormProps, CreateProductInterface>({
             // if (res.status === 200) {
             //     Router.push('/admin/products')
             // }
+            toast.success("the product created successfully");
+            //GetProducts;
 
         } catch (error) {
             if (error instanceof validationErrors) {

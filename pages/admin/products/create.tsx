@@ -2,6 +2,7 @@ import AdminPanelLayout from "../../../app/components/adminPanelLayout";
 import { NextPageWithLayout } from "../../_app";
 import CreateProductForm from "@/app/forms/admin/products/createProductForm";
 
+
 const ProductCreate: NextPageWithLayout = () => {
   return (
     <>
