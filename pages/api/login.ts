@@ -22,7 +22,7 @@ export default function handler(
     'Set-Cookie',
     cookie.serialize('auth_token', req?.body?.token, {
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 2,
+      maxAge: 60 * 60 * 24 * 5,
       sameSite: 'lax',
       path: '/'
       // domain: '',

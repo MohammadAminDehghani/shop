@@ -1,37 +1,41 @@
 import { NextPageWithLayout } from "../../_app";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AdminPanelLayout from "@/app/components/adminPanelLayout";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Modal from "@/app/components/shared/modal";
 import { useRouter } from "next/router";
 import CreateProductForm from "@/app/forms/admin/products/createProductForm";
 import useSWR from "swr";
 import { GetProducts } from "@/app/services/product";
 import Product from "@/app/models/product";
-import Spinner from "@/app/components/icons/spinner";
 import LoadingBox from "@/app/components/shared/loadingBox";
 import ReactCustomPaginate from "@/app/components/shared/reactCutsomPaginate";
-
-
+import EmptyList from "@/app/components/shared/emptyList";
 
 const AdminProducts: NextPageWithLayout = () => {
-  
-
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
   const router = useRouter();
 
-  const { data: products, error } = useSWR(
+  const { data, error } = useSWR(
     {
       url: "/admin/products",
       page,
     },
     GetProducts
   );
+
+  const products = data?.products;
+  const total_page = data?.total_page;
+
+  console.log(data);
+  //console.log(total_page)
+  //console.log(products)
+
   const loadingProducts = !products && !error;
 
-  const onPageChangeHandler = ({selected} : { selected : number }) => setPage(selected+1)
+  const onPageChangeHandler = ({ selected }: { selected: number }) =>
+    setPage(selected + 1);
   //console.log(products)
 
   const setShowCreateProduct = (show = true) => {
@@ -116,6 +120,9 @@ const AdminProducts: NextPageWithLayout = () => {
                     <LoadingBox />
                   </div>
                 ) : (
+
+                  products?.length > 0 
+                  ?
                   <table className="min-w-full divide-y divide-gray-300">
                     <thead className="bg-gray-50">
                       <tr>
@@ -173,17 +180,25 @@ const AdminProducts: NextPageWithLayout = () => {
                       ))}
                     </tbody>
                   </table>
+                  :
+                  <EmptyList 
+                        title="Nothing to show!"
+                        description="please add a some product"
+                  />
+
                 )}
 
-                <div className="p-4 mt-2 border-t border-gray-200">
-                  
+                {total_page > 1 ? (
+                  <div className="p-1 border-t border-gray-200">
                     <ReactCustomPaginate
                       onPageChangeHandler={onPageChangeHandler}
-                      pageCount={7}
+                      pageCount={total_page}
                       page={page}
                     />
-                  
-                </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>
