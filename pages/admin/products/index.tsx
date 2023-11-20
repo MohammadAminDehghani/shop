@@ -1,5 +1,5 @@
 import { NextPageWithLayout } from "../../_app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminPanelLayout from "@/app/components/adminPanelLayout";
 import Modal from "@/app/components/shared/modal";
 import { useRouter } from "next/router";
@@ -12,11 +12,11 @@ import ReactCustomPaginate from "@/app/components/shared/reactCutsomPaginate";
 import EmptyList from "@/app/components/shared/emptyList";
 
 const AdminProducts: NextPageWithLayout = () => {
-  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
   const router = useRouter();
 
+  const { page : queryPage } = router.query;
   const { data, error } = useSWR(
     {
       url: "/admin/products",
@@ -24,18 +24,19 @@ const AdminProducts: NextPageWithLayout = () => {
     },
     GetProducts
   );
-
   const products = data?.products;
   const total_page = data?.total_page;
 
-  console.log(data);
-  //console.log(total_page)
-  //console.log(products)
+  useEffect(() => {
+    setPage(parseInt(queryPage))
+  },[queryPage]);
 
   const loadingProducts = !products && !error;
 
-  const onPageChangeHandler = ({ selected }: { selected: number }) =>
-    setPage(selected + 1);
+  const onPageChangeHandler = ({ selected }: { selected: number }) => {
+    router.push(`/admin/products?page=${selected + 1}`);
+  };
+
   //console.log(products)
 
   const setShowCreateProduct = (show = true) => {
@@ -119,10 +120,7 @@ const AdminProducts: NextPageWithLayout = () => {
                   <div className="p-5">
                     <LoadingBox />
                   </div>
-                ) : (
-
-                  products?.length > 0 
-                  ?
+                ) : products?.length > 0 ? (
                   <table className="min-w-full divide-y divide-gray-300">
                     <thead className="bg-gray-50">
                       <tr>
@@ -180,12 +178,11 @@ const AdminProducts: NextPageWithLayout = () => {
                       ))}
                     </tbody>
                   </table>
-                  :
-                  <EmptyList 
-                        title="Nothing to show!"
-                        description="please add a some product"
+                ) : (
+                  <EmptyList
+                    title="Nothing to show!"
+                    description="please add a some product"
                   />
-
                 )}
 
                 {total_page > 1 ? (

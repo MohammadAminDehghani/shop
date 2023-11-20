@@ -3,7 +3,7 @@ import { CreateProductInterface } from "@/app/contracts/admin/products";
 
 
 
-export async function GetProducts({page = 1, per_page = 10}){
+export async function GetProducts({page = 1, per_page = 2}){
 
     let res = await callApi().get(`/products?page=${page}&per_page=${per_page}`);
 
