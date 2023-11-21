@@ -10,14 +10,16 @@ import Product from "@/app/models/product";
 import LoadingBox from "@/app/components/shared/loadingBox";
 import ReactCustomPaginate from "@/app/components/shared/reactCutsomPaginate";
 import EmptyList from "@/app/components/shared/emptyList";
+import ProductListItem from "@/app/components/admin/products/productListItem";
 
 const AdminProducts: NextPageWithLayout = () => {
   const [page, setPage] = useState(1);
 
+
   const router = useRouter();
 
-  const { page : queryPage } = router.query;
-  const { data, error } = useSWR(
+  const { page: queryPage } = router.query;
+  const { data, error, mutate } = useSWR(
     {
       url: "/admin/products",
       page,
@@ -28,8 +30,9 @@ const AdminProducts: NextPageWithLayout = () => {
   const total_page = data?.total_page;
 
   useEffect(() => {
-    setPage(parseInt(queryPage))
-  },[queryPage]);
+    if (queryPage !== undefined && typeof queryPage === "string")
+      setPage(parseInt(queryPage));
+  }, [queryPage]);
 
   const loadingProducts = !products && !error;
 
@@ -94,9 +97,6 @@ const AdminProducts: NextPageWithLayout = () => {
             <h1 className="text-xl font-semibold text-gray-900">
               Products List
             </h1>
-            <p className="mt-2 text-sm text-gray-700">
-              You Can See Products List In This Page!!!
-            </p>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button
@@ -149,33 +149,9 @@ const AdminProducts: NextPageWithLayout = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
-                      {products.map((product: Product) => (
-                        <tr key={product.id}>
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                            {product.id}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {product.title}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {product.body}
-                          </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
-                            <a
-                              href="#"
-                              className="text-indigo-600 hover:text-indigo-900 mr-4"
-                            >
-                              edit
-                            </a>
-                            <a
-                              href="#"
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              delete
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
+                      {products.map((product: Product) => 
+                        <ProductListItem product={product} productsMutate = {mutate} />
+                      )}
                     </tbody>
                   </table>
                 ) : (
