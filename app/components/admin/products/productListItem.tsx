@@ -20,13 +20,12 @@ export default function ProductListItem({ product, productsMutate }: Props) {
 
   const handleDeleteConfirmation = async (product: Product) => {
     try {
-      const res = await DeleteProduct(product.id);
 
+      await DeleteProduct(product.id);
+      await productsMutate();
+      toast.success("The product deleted successfully");
       setShowDeleteConfirmation(false);
 
-      productsMutate();
-
-      toast.success("The product deleted successfully");
     } catch (error) {
       if (error instanceof validationErrors) {
         Object.entries(error.messages).forEach(([key, value]) =>
@@ -41,7 +40,7 @@ export default function ProductListItem({ product, productsMutate }: Props) {
 
   return (
     <>
-      <tr key={product.id}>
+      <tr>
         {showDeleteConfirmation && (
           <td className="hidden">
             <DeleteConfirmation
@@ -63,7 +62,7 @@ export default function ProductListItem({ product, productsMutate }: Props) {
         </td>
         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">
           <a
-            href="#"
+            href={`/admin/products/${product.id}/edit`}
             className="bg-transparent hover:bg-amber-500 text-amber-600 font-semibold hover:text-white py-1 px-2 mx-1 border border-amber-500 hover:border-transparent rounded"
           >
             edit

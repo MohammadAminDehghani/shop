@@ -1,12 +1,10 @@
 import { Form, FormikProps } from "formik";
 import Input from "@/app/components/shared/form/input";
-import { CreateProductInterface } from "@/app/contracts/admin/products";
+import { EditProductInterface } from "@/app/contracts/admin/products";
 import TextArea from "../../shared/form/textarea";
 import SelectBox from "../../shared/form/selectbox";
 
-const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
-
-
+const InnerEditProductForm = (props: FormikProps<EditProductInterface>) => {
   return (
     <Form>
       <div className="p-6 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-8">
@@ -58,7 +56,7 @@ const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
           type="submit"
           className="ml-2 inline-flex items-center mx-1 px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-700 "
         >
-          Create a new
+          Update
         </button>
         <button
           type="button"
@@ -71,4 +69,4 @@ const InnerCreateProductForm = (props: FormikProps<CreateProductInterface>) => {
   );
 };
 
-export default InnerCreateProductForm;
+export default InnerEditProductForm;

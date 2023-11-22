@@ -15,7 +15,6 @@ import ProductListItem from "@/app/components/admin/products/productListItem";
 const AdminProducts: NextPageWithLayout = () => {
   const [page, setPage] = useState(1);
 
-
   const router = useRouter();
 
   const { page: queryPage } = router.query;
@@ -40,7 +39,6 @@ const AdminProducts: NextPageWithLayout = () => {
     router.push(`/admin/products?page=${selected + 1}`);
   };
 
-  //console.log(products)
 
   const setShowCreateProduct = (show = true) => {
     router.push(`/admin/products${show === true ? "?create-product" : ""}`);
@@ -80,8 +78,6 @@ const AdminProducts: NextPageWithLayout = () => {
   return (
     <>
       {
-        //   showAddProduct && <Modal
-        // setShow={setShowAddProduct}
         "create-product" in router.query && (
           <Modal setShow={() => setShowCreateProduct(false)}>
             <div className="p-4 inline-block w-full max-w-4xl mt-20 mb-20 ml-20 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
@@ -150,7 +146,7 @@ const AdminProducts: NextPageWithLayout = () => {
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
                       {products.map((product: Product) => 
-                        <ProductListItem product={product} productsMutate = {mutate} />
+                        <ProductListItem key={product.id} product={product} productsMutate = {mutate} />
                       )}
                     </tbody>
                   </table>
