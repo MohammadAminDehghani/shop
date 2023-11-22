@@ -11,10 +11,12 @@ import LoadingBox from "@/app/components/shared/loadingBox";
 import ReactCustomPaginate from "@/app/components/shared/reactCutsomPaginate";
 import EmptyList from "@/app/components/shared/emptyList";
 import ProductListItem from "@/app/components/admin/products/productListItem";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/app/store/auth";
 
 const AdminProducts: NextPageWithLayout = () => {
   const [page, setPage] = useState(1);
-
+  const user = useSelector(selectUser);
   const router = useRouter();
 
   const { page: queryPage } = router.query;
@@ -38,7 +40,6 @@ const AdminProducts: NextPageWithLayout = () => {
   const onPageChangeHandler = ({ selected }: { selected: number }) => {
     router.push(`/admin/products?page=${selected + 1}`);
   };
-
 
   const setShowCreateProduct = (show = true) => {
     router.push(`/admin/products${show === true ? "?create-product" : ""}`);
@@ -77,15 +78,14 @@ const AdminProducts: NextPageWithLayout = () => {
 
   return (
     <>
-      {
+      {user.canAccess("add_new_product") &&
         "create-product" in router.query && (
           <Modal setShow={() => setShowCreateProduct(false)}>
             <div className="p-4 inline-block w-full max-w-4xl mt-20 mb-20 ml-20 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
               <CreateProductForm />
             </div>
           </Modal>
-        )
-      }
+        )}
 
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
@@ -95,17 +95,19 @@ const AdminProducts: NextPageWithLayout = () => {
             </h1>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <button
-              // onClick={() => setShowAddProduct(true)}
-              onClick={() => {
-                setShowCreateProduct(true);
-                //router.push('/admin/products?create-product')
-              }}
-              type="submit"
-              className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-            >
-              add product
-            </button>
+            {user.canAccess("add_new_product") && (
+              <button
+                // onClick={() => setShowAddProduct(true)}
+                onClick={() => {
+                  setShowCreateProduct(true);
+                  //router.push('/admin/products?create-product')
+                }}
+                type="submit"
+                className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+              >
+                add product
+              </button>
+            )}
           </div>
         </div>
         <div className="mt-8 flex flex-col">
@@ -145,9 +147,13 @@ const AdminProducts: NextPageWithLayout = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
-                      {products.map((product: Product) => 
-                        <ProductListItem key={product.id} product={product} productsMutate = {mutate} />
-                      )}
+                      {products.map((product: Product) => (
+                        <ProductListItem
+                          key={product.id}
+                          product={product}
+                          productsMutate={mutate}
+                        />
+                      ))}
                     </tbody>
                   </table>
                 ) : (
