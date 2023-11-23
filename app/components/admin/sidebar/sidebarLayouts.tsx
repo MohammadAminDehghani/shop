@@ -24,7 +24,7 @@ function classNames(...classes: string[]) {
 interface props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  pageName: string;
+  pageName: string | undefined;
 }
 
 export default function SidebarLayout({ open, setOpen, pageName }: props) {

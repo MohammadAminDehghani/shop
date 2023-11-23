@@ -10,7 +10,7 @@ import {
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
 import useAuth from "../hooks/useAuth"
-import SidebarLayout from "./admin/sidebar/sidebarLayouts"
+import SidebarLayout from "@/app/components/admin/sidebar/sidebarLayouts";
 
 
 const userNavigation = [
@@ -26,10 +26,11 @@ function classNames(...classes: string[]) {
 
 interface Props {
     children: ReactNode,
-    pageName: string
+    pageName?: string
 }
 
 const AdminPanelLayout = ({ children, pageName }: Props) => {
+
     const router = useRouter();
     const { user, error, loading } = useAuth();
     const [sidebarOpen, setSidebarOpen] = useState(false);

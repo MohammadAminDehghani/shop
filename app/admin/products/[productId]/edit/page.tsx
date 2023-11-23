@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { EditProduct } from "@/app/services/product";
 import { useRouter } from "next/navigation";
 import EditProductForm from "@/app/forms/admin/products/editProductForm";
+import AdminPanelLayout from "@/app/components/adminPanelLayout";
 
 const ProductEdid = ( { params } : any) => {
 
