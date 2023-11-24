@@ -1,12 +1,12 @@
+"use client";
+
 import InnerCreateProductForm from "@/app/components/admin/products/innerCreateProductForm";
 import { CreateProductInterface } from "@/app/contracts/admin/products";
 import validationErrors from "@/app/exceptions/validationErrors";
-import callApi from "@/app/helpers/callApi";
-import { CreateProduct, GetProducts } from "@/app/services/product";
 import { withFormik } from "formik";
-import Router from "next/router";
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
 
 const FormValidationSchema = yup.object({
     title: yup.string().min(4).max(255).required('Name is required'),
@@ -26,20 +26,22 @@ const CreateProductForm = withFormik<LoginFormProps, CreateProductInterface>({
     mapPropsToValues: (props) => ({
         title: '',
         price: 0,
-        category: '',
+        category: 0,
         description: '',
     }),
     validationSchema: FormValidationSchema,
     handleSubmit: async (values, { props, setFieldError }) => {
-       
+        const router = useRouter();
+       console.log(values)
         try {
-
-            const res = await CreateProduct(values)
-            Router.push('/admin/products')
+            console.log(values)
+            router.push('/admin/products')
+            //const res = await CreateProduct(values)
+            //router.push('/admin/products')
             // if (res.status === 200) {
             //     Router.push('/admin/products')
             // }
-            toast.success("the product created successfully");
+            //toast.success("the product created successfully");
             //GetProducts;
 
         } catch (error) {

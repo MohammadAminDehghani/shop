@@ -3,10 +3,11 @@ import Cookies from "universal-cookie";
 import callApi from "../helpers/callApi";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../store/auth";
+import User from "../models/user";
 
 
 
-const  useAuth = () => {
+const useAuth = () => {
 
     const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ const  useAuth = () => {
 
     dispatch(updateUser(data?.data?.user))
 
-    return { user : data?.data?.user, error, loading: !data && !error}
+    return { user : data?.data?.user , error, loading: !data && !error}
 }
 
 
