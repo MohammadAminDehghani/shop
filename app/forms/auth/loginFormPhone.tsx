@@ -1,8 +1,11 @@
+"use client"
+
 import InnerLoginFormPhone from "@/app/components/auth/innerLoginFormPhone";
 import { LoginFormValuesInterfacePhone } from "@/app/contracts/auth";
 import validationErrors from "@/app/exceptions/validationErrors";
 import callApi from "@/app/helpers/callApi";
 import { withFormik } from "formik";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Router from "next/router";
 import * as yup from 'yup';
 
@@ -17,6 +20,7 @@ interface LoginFormProps {
     phone?: string,
     password?: string,
     setToken : (token:string) => void,
+    router: AppRouterInstance
 }
 
 const LoginFormPhone = withFormik<LoginFormProps, LoginFormValuesInterfacePhone>({
@@ -42,7 +46,7 @@ const LoginFormPhone = withFormik<LoginFormProps, LoginFormValuesInterfacePhone>
                 
                 localStorage.setItem('login-token', res.data.token);
                 localStorage.setItem('phone', values.phone);
-                Router.push({ pathname: '/auth/login-verify'});
+                props.router.push('/auth/login-verify');
 
 
                 props.setToken(res.data.token);

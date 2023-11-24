@@ -1,3 +1,5 @@
+"use client"
+
 import InnerRegisterFormPhone from "@/app/components/auth/innerRegisterFormPhone";
 import { RegisterFormValuesInterfacePhone } from "@/app/contracts/auth";
 import callApi from "@/app/helpers/callApi";

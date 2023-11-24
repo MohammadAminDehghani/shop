@@ -1,12 +1,12 @@
-"use client";
-
+import { useRouter } from "next/router";
 import InnerCreateProductForm from "@/app/components/admin/products/innerCreateProductForm";
 import { CreateProductInterface } from "@/app/contracts/admin/products";
 import validationErrors from "@/app/exceptions/validationErrors";
 import { withFormik } from "formik";
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
-import { useRouter } from "next/navigation";
+import { CreateProduct, GetProducts } from "@/app/services/product";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const FormValidationSchema = yup.object({
     title: yup.string().min(4).max(255).required('Name is required'),
@@ -20,7 +20,9 @@ interface LoginFormProps {
     // price?: number,
     // category?: number,
     // description?: string,
+    router : AppRouterInstance
 }
+//const router = useRouter
 
 const CreateProductForm = withFormik<LoginFormProps, CreateProductInterface>({
     mapPropsToValues: (props) => ({
@@ -31,30 +33,26 @@ const CreateProductForm = withFormik<LoginFormProps, CreateProductInterface>({
     }),
     validationSchema: FormValidationSchema,
     handleSubmit: async (values, { props, setFieldError }) => {
-        const router = useRouter();
-       console.log(values)
         try {
-            console.log(values)
-            router.push('/admin/products')
-            //const res = await CreateProduct(values)
-            //router.push('/admin/products')
-            // if (res.status === 200) {
-            //     Router.push('/admin/products')
-            // }
-            //toast.success("the product created successfully");
-            //GetProducts;
-
+            const res = await CreateProduct(values);
+            if (res.status === 200) {
+                toast.success("The product was created successfully");
+                GetProducts;
+                // Redirect to '/admin/products' after successful creation
+                //window.location.href = '/admin/products';
+                props.router.push('/admin/products')
+                
+            }
         } catch (error) {
             if (error instanceof validationErrors) {
                 Object.entries(error.messages).forEach(
                     ([key, value]) => setFieldError(key, value as string)
-                )
+                );
                 return;
             }
-            console.log(error)
+            console.log(error);
         }
-
     }
-})(InnerCreateProductForm)
+})(InnerCreateProductForm);
 
 export default CreateProductForm;

@@ -1,10 +1,13 @@
+"use client"
+
 import InnerLoginFormVerifyPhone from "@/app/components/auth/innerLoginFormVerifyPhone";
 import { LoginFormValuesInterfaceVerifyPhone } from "@/app/contracts/auth";
 import validationErrors from "@/app/exceptions/validationErrors";
 import { storeLoginToken } from "@/app/helpers/auth";
 import callApi from "@/app/helpers/callApi";
 import { withFormik } from "formik";
-import Router from "next/router";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { toast } from "react-toastify";
 import * as yup from 'yup';
 
 const phoneRegExp = /^09(1[0-9]|3[1-9])-?[0-9]{3}-?[0-9]{4}$/
@@ -19,7 +22,8 @@ interface LoginFormProps {
     token?: string,
     code?: string,
     clearToken : () => void,
-    setCookie?: any
+    setCookie?: any,
+    router: AppRouterInstance
 }
 
 const LoginFormVerifyPhone = withFormik<LoginFormProps, LoginFormValuesInterfaceVerifyPhone>({
@@ -58,9 +62,12 @@ const LoginFormVerifyPhone = withFormik<LoginFormProps, LoginFormValuesInterface
                 //     domain: 'localhost',
                 //     sameSite: 'lax'
                 // });
+                toast.success('Your Login has been verified');
+                console.log(res.data?.user?.token)
                 storeLoginToken(res.data?.user?.token); 
                 props.clearToken();
-                await Router.push('/panel');
+                //props.router.push('/panel');
+                window.location.href = '/admin/products';
                 
             }
 
