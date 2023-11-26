@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
@@ -12,6 +12,7 @@ import store from "./../app/store";
 //Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./layouts/header";
 
 // export const metadata = {
 //   title: "Next.js",
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Header />
         <Provider store={store}>
           {children}
           <ToastContainer
