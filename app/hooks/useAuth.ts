@@ -23,6 +23,7 @@ const useAuth = () => {
 
         return callApi().get('/user')
     });
+    
 
     //dispatch(updateUser(data?.data?.user))
 

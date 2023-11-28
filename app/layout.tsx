@@ -5,15 +5,16 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
 import { NextPage } from "next";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 
 import store from "./../app/store";
 
 //Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./layouts/header";
+import Header from "./components/layouts/header";
 import useAuth from "./hooks/useAuth";
+import { updateLoadingUser, updateUser } from "./store/auth";
 
 // export const metadata = {
 //   title: "Next.js",
@@ -26,13 +27,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const { user, error, loading } = useAuth();
-  console.log(user, error, loading);
+  //console.log(user, error, loading);
+
+  useEffect(() => {
+    store.dispatch(updateUser(user));
+    store.dispatch(updateLoadingUser(loading));
+  }, [user, error]);
 
   return (
     <html lang="en">
       <body>
-        <Header />
         <Provider store={store}>
+          <Header />
           {children}
           <ToastContainer
             position="bottom-right"
