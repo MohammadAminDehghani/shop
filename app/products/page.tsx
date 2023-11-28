@@ -34,7 +34,7 @@ export default async function ShowProduct({
   searchParams: { page, per_page },
 }: Props) {
   let productsData = await getProducts({page, per_page});
-  console.log(page)
+  //console.log(page)
   productsData.page = page;
   productsData.per_page = per_page;
 

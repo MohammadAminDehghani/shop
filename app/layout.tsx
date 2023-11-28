@@ -13,6 +13,7 @@ import store from "./../app/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./layouts/header";
+import useAuth from "./hooks/useAuth";
 
 // export const metadata = {
 //   title: "Next.js",
@@ -24,6 +25,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { user, error, loading } = useAuth();
+  console.log(user, error, loading);
+
   return (
     <html lang="en">
       <body>
