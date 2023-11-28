@@ -30,6 +30,7 @@ const CreateProductForm = withFormik<LoginFormProps, CreateProductInterface>({
         price: 0,
         category: 0,
         description: '',
+        router: props.router
     }),
     validationSchema: FormValidationSchema,
     handleSubmit: async (values, { props, setFieldError }) => {

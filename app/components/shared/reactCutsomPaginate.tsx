@@ -22,7 +22,7 @@ export default function ReactCustomPaginate({ pageRangeDisplayed = 3 ,  marginPa
                     breakLabel="..."
                     breakClassName="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
                     nextLabel="next"
-                    nextClassName="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    nextClassName="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                     pageRangeDisplayed={pageRangeDisplayed}
                     marginPagesDisplayed={marginPagesDisplayed}
                     activeClassName="z-10 bg-sky-50 border-sky-500 text-sky-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
@@ -31,7 +31,7 @@ export default function ReactCustomPaginate({ pageRangeDisplayed = 3 ,  marginPa
                     pageCount={pageCount}
                     pageClassName="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                     previousLabel="prev"
-                    previousClassName="relative inline-flex items-center text-sm px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    previousClassName="relative inline-flex items-center text-sm px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                     renderOnZeroPageCount={undefined}
                 />
             )

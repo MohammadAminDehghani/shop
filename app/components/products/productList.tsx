@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import ReactCustomPaginate from "../shared/reactCutsomPaginate";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const productsTailwind = [
   {
@@ -47,7 +49,24 @@ const productsTailwind = [
   // More products...
 ];
 
+
+
 export default function ProductList({ productsData }: { productsData: any }) {
+
+  const router = useRouter()
+
+  useEffect(()=>{
+    router.push(`/products?page=1&per_page=4`);
+  },[])
+
+  // const onPageChangeHandler = ({ page, per_page }: { page: string, per_page: string }) => {
+  //   router.push(`/products?page=${parseInt(page) + 1}&per_page=${per_page}`);
+  // };
+
+  const onPageChangeHandler = ({ selected }: { selected: number }) => {
+    router.push(`/products?page=${selected + 1}&per_page=${productsData.per_page ?? 4}`);
+  };
+
   return (
     <>
       <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
@@ -76,10 +95,11 @@ export default function ProductList({ productsData }: { productsData: any }) {
           </div>
         ))}
       </div>
+
       <ReactCustomPaginate
-        pageCount={productsData.total_count}
-        page={1}
-        onPageChangeHandler={() => {}}
+        pageCount={productsData.total_page}
+        page={productsData.page}
+        onPageChangeHandler={onPageChangeHandler}
       />
     </>
   );

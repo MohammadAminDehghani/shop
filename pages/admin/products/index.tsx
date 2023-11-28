@@ -82,7 +82,7 @@ const AdminProducts: NextPageWithLayout = () => {
         "create-product" in router.query && (
           <Modal setShow={() => setShowCreateProduct(false)}>
             <div className="p-4 inline-block w-full max-w-4xl mt-20 mb-20 ml-20 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg opacity-100 scale-100">
-              <CreateProductForm />
+              <CreateProductForm router={router} refresh = {true} />
             </div>
           </Modal>
         )}
